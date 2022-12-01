@@ -1,32 +1,50 @@
 import { async } from "@firebase/util";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "../../utils/firebase.utils";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase.utils";
 
 const defaultFormFields = {
     displayName: '',
     email: '',
     password: '',
     confirmPassword: ''
-}
+};
 
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
+    const resetFormFields = () => {
+        setFormFields(defaultFormFields);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if(password != confirmPassword)
-        {
+        if (password != confirmPassword) {
             alert("password doesnot match");
             return;
         }
 
-        try{
-            const response = await 
-        }catch() {
+        try {
+            const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
+            await createUserDocumentFromAuth(user, { displayName });
+            resetFormFields();
         }
-    }
+        catch (error) {
+            if (error.code == 'auth/email-already-in-use') {
+                alert('You have created alre ady an account');
+            }
+            else if (error.code == 'auth/invalid-email') {
+                alert('wrong email');
+            } 
+            else if (error.code == 'auth/weak-password') {
+                alert('password should be atleast 6 characters');
+            } 
+            else {
+                console.log('user creation encountered an error', error);
+            }
+        }
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -36,7 +54,7 @@ const SignUpForm = () => {
     return (
         <div>
             <h1> Sign up with your email and apssword</h1>
-            <form onSubmit={() => { }}>
+            <form onSubmit={handleSubmit}>
                 <label>Display Name</label>
                 <input
                     type='text'
