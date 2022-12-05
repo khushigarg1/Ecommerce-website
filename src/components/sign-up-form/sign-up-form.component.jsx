@@ -6,7 +6,7 @@ const defaultFormFields = {
     displayName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
 };
 
 const SignUpForm = () => {
@@ -19,6 +19,7 @@ const SignUpForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (password != confirmPassword) {
             alert("password doesnot match");
             return;
@@ -29,17 +30,18 @@ const SignUpForm = () => {
 
             await createUserDocumentFromAuth(user, { displayName });
             resetFormFields();
-        }
-        catch (error) {
-            if (error.code == 'auth/email-already-in-use') {
-                alert('You have created alre ady an account');
+        } catch (error) {
+            if (error.code === 'auth/invalid-email' ||
+                error.code === 'auth/user-disabled' ||
+                error.code === 'auth/user-not-found') {
+                alert("You have created an account already using this email");
             }
-            else if (error.code == 'auth/invalid-email') {
-                alert('wrong email');
-            } 
-            else if (error.code == 'auth/weak-password') {
-                alert('password should be atleast 6 characters');
-            } 
+            // else if (error.code = 'auth/invalid-email') {
+            //     alert("wrong email");
+            // }
+            else if (error.code === 'auth/wrong-password') {
+                alert("password should be atleast 6 characters");
+            }
             else {
                 console.log('user creation encountered an error', error);
             }
