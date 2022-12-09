@@ -1,6 +1,8 @@
 import { async } from "@firebase/util";
 import { useState } from "react";
+import FormInput from "../form-input/form-input.component";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase.utils";
+import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
     displayName: '',
@@ -27,21 +29,25 @@ const SignUpForm = () => {
 
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
-
             await createUserDocumentFromAuth(user, { displayName });
             resetFormFields();
         } catch (error) {
-            if (error.code === 'auth/invalid-email' ||
-                error.code === 'auth/user-disabled' ||
-                error.code === 'auth/user-not-found') {
+            // if (error.code === 'auth/invalid-email' ||
+            //     error.code === 'auth/user-disabled' ||
+            //     error.code === 'auth/email-already-in-use' ||
+            //     error.code === 'auth/user-not-found') {
+            //     alert("You have created an account already using this email");
+            // }
+            if (error.code === 'auth/email-already-in-use') {
+                console.log("already om ise");
                 alert("You have created an account already using this email");
             }
             // else if (error.code = 'auth/invalid-email') {
             //     alert("wrong email");
             // }
-            else if (error.code === 'auth/wrong-password') {
-                alert("password should be atleast 6 characters");
-            }
+            // else if (error.code === 'auth/wrong-password') {
+            //     alert("password should be atleast 6 characters");
+            // }
             else {
                 console.log('user creation encountered an error', error);
             }
@@ -54,11 +60,13 @@ const SignUpForm = () => {
     };
 
     return (
-        <div>
-            <h1> Sign up with your email and apssword</h1>
+        <div className="sign-up-container" >
+            <h2>Don't have an account</h2>
+            <span> Sign up with your email and apssword</span>
             <form onSubmit={handleSubmit}>
-                <label>Display Name</label>
-                <input
+                {/* <label>Display Name</label> */}
+                <FormInput
+                    label="Display Name"
                     type='text'
                     required
                     onChange={handleChange}
@@ -66,8 +74,9 @@ const SignUpForm = () => {
                     value={displayName}
                 />
 
-                <label>Email</label>
-                <input
+                {/* <label>Email</label> */}
+                <FormInput
+                    label="Email"
                     type='email'
                     required
                     onChange={handleChange}
@@ -75,8 +84,9 @@ const SignUpForm = () => {
                     value={email}
                 />
 
-                <label>Password</label>
-                <input
+                {/* <label>Password</label> */}
+                <FormInput
+                    label="Password"
                     type='password'
                     required
                     onChange={handleChange}
@@ -84,8 +94,9 @@ const SignUpForm = () => {
                     value={password}
                 />
 
-                <label>Confirm Password</label>
-                <input
+                {/* <label>Confirm Password</label> */}
+                <FormInput
+                    label="Confirm Password"
                     type='password'
                     required
                     onChange={handleChange}
