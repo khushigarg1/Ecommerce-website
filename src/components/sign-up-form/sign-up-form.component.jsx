@@ -1,20 +1,25 @@
 import { async } from "@firebase/util";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase.utils";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import './sign-up-form.styles.scss';
 
+import { UserContext } from "../../contexts/user.context";
 const defaultFormFields = {
     displayName: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    confirmPassword: ''
 };
 
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
+
+    // const val = useContext(UserContext); 
+    console.log("hitt");
+    const { setCurrentUser } = useContext(UserContext);
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -30,7 +35,9 @@ const SignUpForm = () => {
 
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            setCurrentUser(user);
             await createUserDocumentFromAuth(user, { displayName });
+
             resetFormFields();
         } catch (error) {
             // if (error.code === 'auth/invalid-email' ||
@@ -46,9 +53,9 @@ const SignUpForm = () => {
             // else if (error.code = 'auth/invalid-email') {
             //     alert("wrong email");
             // }
-            // else if (error.code === 'auth/wrong-password') {
-            //     alert("password should be atleast 6 characters");
-            // }
+            else if (error.code === 'auth/weak-password') {
+                alert("password should be atleast 6 characters");
+            }
             else {
                 console.log('user creation encountered an error', error);
             }
@@ -107,7 +114,7 @@ const SignUpForm = () => {
 
                 <Button buttonType='default' type="submit">Sign Up</Button>
             </form>
-        </div> 
+        </div>
     );
 }
 
