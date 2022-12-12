@@ -4,12 +4,7 @@ import Navigation from './routes/navigation/navigation.component';
 import Authentication from './routes/authentication/authentication.component';
 // import './categories.styles.scss';
 
-
-const Shop = () => {
-    return (
-        <h1>shop</h1>
-    )
-}
+import Shop from './routes/shop/shop.component';
 
 const App = () => {
     return (
