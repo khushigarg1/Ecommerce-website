@@ -23,13 +23,14 @@ const CartDropdown = () => {
     return (
         <div className='cart-dropdown-container'>
             <div className='cart-items'>
-                {cartItems.map((item) => (
+                {/* {[].map((item) => ( */}
+                {cartItems?.map((item) => (
                     <CartItem key={item.id} cartItem={item} />
                 ))}
             </div>
+            <Button buttontype='inverted'>Go To checkout</Button>
         </div>
     );
 };
 
 export default CartDropdown;
-
