@@ -1,4 +1,12 @@
+import { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom';
+// import { createAction } from '../utils/firebase/reducer/reducer.component';
+// import {
+//     onAuthStateChangedListener,
+//     createUserDocumentFromAuth
+// } from '../utils/firebase/firebase/firebase.utils';
+
+
 import Home from "./routes/home/home.component";
 import Navigation from './routes/navigation/navigation.component';
 import Authentication from './routes/authentication/authentication.component';

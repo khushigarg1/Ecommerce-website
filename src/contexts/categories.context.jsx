@@ -17,7 +17,7 @@ import { createContext, useState, useEffect } from "react";
 // };
 
 // import SHOP_DATA from '../shopdata.js';
-import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils.js";
+import { getCategoriesAndDocuments } from "../utils/firebase/firebase/firebase.utils.js";
 // import { addCollectionAndDocuments } from "../utils/firebase/firebase.utils.js";
 
 export const CategoriesContext = createContext({
