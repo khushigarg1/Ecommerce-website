@@ -12,9 +12,9 @@ import CategoriesPreview from '../categories-preview/categories-preview.componen
 import Category from '../category/category.component';
 // import { CategoriesProvider } from '../../contexts/categories.context';
 
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase/firebase.utils';
-import { setCategories } from '../../store/categories/category.action';
-
+// import { getCategoriesAndDocuments } from '../../utils/firebase/firebase/firebase.utils';
+// import { setCategories, fetchCategoriesAsync } from '../../store/categories/category.action';
+import { fetchCategoriesStart } from '../../store/categories/category.action';
 const Shop = () => {
     // const { categoriesMap } = useContext(CategoriesContext);
     // return (
@@ -40,18 +40,22 @@ const Shop = () => {
     // );
 
     const dispatch = useDispatch();
-    useEffect(() => {
-        const getCategoriesMap = async () => {
-            const categoriesArray = await getCategoriesAndDocuments('categories');
-            // console.log(categoriesArray);
-            
-            // const categoryMap = await getCategoriesAndDocuments();
-            // console.log(categoryMap);
-            dispatch(setCategories(categoriesArray));
-        };
+    // useEffect(() => {
+    //     const getCategoriesMap = async () => {
+    //         const categoriesArray = await getCategoriesAndDocuments('categories');
+    //         // console.log(categoriesArray);
 
-        getCategoriesMap();
+    //         // const categoryMap = await getCategoriesAndDocuments();
+    //         // console.log(categoryMap);
+    //         dispatch(setCategories(categoriesArray));
+    //     };
+
+    useEffect(() => {
+        dispatch(fetchCategoriesStart());
     }, []);
+    // useEffect(() => {
+    //     dispatch(fetchCategoriesAsync());
+    // }, []);
 
     return (
         // <CategoriesProvider>

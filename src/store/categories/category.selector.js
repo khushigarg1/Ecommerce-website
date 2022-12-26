@@ -6,18 +6,18 @@ so createselector does that with selectors it memorizes them assuming that as lo
 */
 import { createSelector } from "reselect";
 
-const selectCategoryReducer = (state) => {
-
+const selectCategoryReducer = (state) =>
     // console.log('selectorr 0 fired');
-    return state.categories;
-};
+    state.categories
+    ;
 
 export const selectCategories = createSelector(
     [selectCategoryReducer],
-    (categoriesSlice) => {
+    (categoriesSlice) =>
         // console.log('selectorr 1 fired');
-        return categoriesSlice.categories;
-    });
+        // return categoriesSlice.categories;
+        categoriesSlice.categories
+);
 
 export const selectCategoriesMAp = createSelector(
     [selectCategories],
@@ -44,3 +44,9 @@ export const selectCategoriesMAp = createSelector(
 //         return acc;
 //     }, {});
 // }
+
+
+export const selectCategoriesIsLoading = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => categoriesSlice.isLoading
+);

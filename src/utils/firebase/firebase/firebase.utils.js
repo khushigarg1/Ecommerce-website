@@ -35,8 +35,9 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
+
 googleProvider.setCustomParameters({
-    prompt: "select_account"
+    prompt: "select_account",
 });
 
 export const auth = getAuth();
@@ -70,6 +71,8 @@ export const addCollectionAndDocuments = async (
 export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, 'categories');
     const q = query(collectionRef);
+
+    // await Promise.reject(new Error('new error woops'));
 
     //this query will give us some objects now that i can get a snapshot from
     const querySnapshot = await getDocs(q);
@@ -123,3 +126,16 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) =>
     onAuthStateChanged(auth, callback);
     // onAuthStateChanged(auth, callback, errorCallback, completedCallback);
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject)=> {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
+};
