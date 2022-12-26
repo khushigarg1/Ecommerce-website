@@ -70,16 +70,19 @@ export const addCollectionAndDocuments = async (
 export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, 'categories');
     const q = query(collectionRef);
+
     //this query will give us some objects now that i can get a snapshot from
     const querySnapshot = await getDocs(q);
-    //getDocs is just a asynchronous ability to ftech those doc snapshots that we want bcoz now all are encapsulated under this query snapshot
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const { title, items } = docSnapshot.data();
-        acc[title.toLowerCase()] = items;
-        return acc;
-    }, {});
+    return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
 
-    return categoryMap;
+    //getDocs is just a asynchronous ability to ftech those doc snapshots that we want bcoz now all are encapsulated under this query snapshot
+    // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    //     const { title, items } = docSnapshot.data();
+    //     acc[title.toLowerCase()] = items;
+    //     return acc;
+    // }, {});
+
+    // return categoryMap;
 };
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {

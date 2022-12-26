@@ -7,15 +7,19 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 
 import { NavigationContainer, NavLink, NavLinks, LogoContainer } from './navigation.styles.jsx';
 // import { UserContext } from "../../contexts/user.context";
-import { CartContext } from "../../contexts/cart.context";
-import { selectCurrentUser } from "../../store/user/user.selector";
+// import { CartContext } from "../../contexts/cart.context";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from "../../utils/firebase/firebase/firebase.utils";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 const Navigation = () => {
+    //selector will rerun currnet user updates it is signin or signout anda ll and react will re render below return components 
+    // const currentUser = useSelector((state) => state.user.currentUser);
     const currentUser = useSelector(selectCurrentUser);
-    const { isCartOpen } = useContext(CartContext);
+    // const { isCartOpen } = useContext(selectIsCartOpen);
+    const isCartOpen = useSelector(selectIsCartOpen);
     // console.log(currentUser);
 
     // const signOutHandler = async () => {
