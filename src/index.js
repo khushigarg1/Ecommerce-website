@@ -23,11 +23,11 @@ render(
                 <BrowserRouter>
                     {/* <UserProvider> */}
                     {/* <CategoriesProvider> */}
-                    <CartProvider>
+                    {/* <CartProvider> */}
                         {/* <Elements stripe={stripePromise}> */}
                         <App />
                         {/* </Elements> */}
-                    </CartProvider>
+                    {/* </CartProvider> */}
                     {/* </CategoriesProvider> */}
                     {/* </UserProvider> */}
                 </BrowserRouter>

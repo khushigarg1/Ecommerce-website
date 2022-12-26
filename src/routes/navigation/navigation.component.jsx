@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
@@ -13,6 +13,7 @@ import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from "../../utils/firebase/firebase/firebase.utils";
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { signOutStart } from "../../store/user/user.action";
 
 const Navigation = () => {
     //selector will rerun currnet user updates it is signin or signout anda ll and react will re render below return components 
@@ -26,6 +27,9 @@ const Navigation = () => {
     //     await signOutUser();
     //     setCurrentUser(null);
     // };
+
+    const dispatch = useDispatch();
+    const signOutUser = () => dispatch(signOutStart());
 
     return (
         <Fragment >

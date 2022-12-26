@@ -2,8 +2,10 @@ import { async } from "@firebase/util";
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase/firebase.utils";
+// import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase/firebase.utils";
 import './sign-up-form.styles.scss';
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/user.action";
 
 // import { UserContext } from "../../contexts/user.context";
 const defaultFormFields = {
@@ -13,12 +15,14 @@ const defaultFormFields = {
     confirmPassword: ''
 };
 
+
 const SignUpForm = () => {
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
     // const val = useContext(UserContext); 
-    console.log("hitt");
+    // console.log("hitt");
     // const { setCurrentUser } = useContext(UserContext);
 
     const resetFormFields = () => {
@@ -28,16 +32,16 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             alert("password doesnot match");
             return;
         }
 
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            // setCurrentUser(user);
-            await createUserDocumentFromAuth(user, { displayName });
-
+            // const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            // // setCurrentUser(user);
+            // await createUserDocumentFromAuth(user, { displayName });
+            dispatch(signUpStart(email, password, displayName));
             resetFormFields();
         } catch (error) {
             // if (error.code === 'auth/invalid-email' ||
