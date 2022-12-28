@@ -30,26 +30,27 @@
 // };
 
 
-
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// console.log("adsada");
 
 exports.handler = async (event) => {
+
     try {
         const { amount } = JSON.parse(event.body);
-
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency: "usd",
-            payment_method_types: ["card"],
+            payment_method_types: ["card"]
+            // description: 'Description of the export transaction',
         });
-
+        console.log("adsada");
         return {
             statusCode: 200,
             body: JSON.stringify({ paymentIntent }),
         };
     } catch (error) {
-        console.log({ error });
+        console.log("error", { error });
 
         return {
             statusCode: 400,
@@ -57,3 +58,21 @@ exports.handler = async (event) => {
         };
     }
 };
+
+
+
+
+
+
+// // Specify Stripe secret api key here
+// const stripe = require("stripe")("sk_test_51MJZDYSGTrVOcod7WItzIriCWghFRiZ1zTGyOTwPhhAU0vR0EbBwnBWdvjtfXRNKdwTyTJU882DvCd3XTJBhT7SB00KSy0pYFr");
+// // Create a PaymentIntent with the order amount and currency
+// const paymentIntent = stripe.paymentIntents.create({
+//     amount: 1200, // Specify amount here
+//     currency: "usd", // Specify currency here
+//     payment_method_types: ["card"],
+// });
+// // Return client secret
+// // res.send({
+// //     clientSecret: paymentIntent.client_secret
+// // });
