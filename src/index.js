@@ -8,25 +8,13 @@ import './index.scss';
 import App from './App';
 // import { UserProvider } from './contexts/user.context';
 // import { CategoriesProvider } from './contexts/categories.context';
-// import { CartProvider } from './contexts/cart.context';
+import { CartProvider } from './contexts/cart.context';
 
-// import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const rootElement = document.getElementById('root');
 // const root = ReactDOM.createRoot(document.getElementById('root'));
-
-/*
-const stripePromise = loadStripe(
-    process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-);
-const rootElement = document.getElementById('root');
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-const options = {
-    // passing the client secret obtained from the server
-    clientSecret: '{{CLIENT_SECRET}}',
-};
-*/
 
 render(
     <React.StrictMode>

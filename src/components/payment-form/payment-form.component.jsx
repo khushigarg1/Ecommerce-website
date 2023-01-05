@@ -93,8 +93,6 @@ import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 import { PaymentButton, PaymentFormContainer } from './payment-form.styles';
 
-
-
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
@@ -108,16 +106,12 @@ const PaymentForm = () => {
             return;
         }
         setIsProcessingPayment(true);
-        console.log(process.env.STRIPE_SECRET_KEY);
         const response = await fetch('/.netlify/functions/create-payment-intent', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                amount: amount * 100
-                // description: 'test description',
-            }),
+            body: JSON.stringify({ amount: amount * 100 }),
         }).then((res) => {
             return res.json();
         });
@@ -128,13 +122,10 @@ const PaymentForm = () => {
             payment_method: {
                 card: elements.getElement(CardElement),
                 billing_details: {
-                    name: currentUser ? currentUser.displayName : 'Khushi Garg',
+                    name: currentUser ? currentUser.displayName : 'Yihua Zhang',
                 },
-            }
-            // description: 'Description of the export transaction',
+            },
         });
-
-        console.log(paymentResult);
 
         setIsProcessingPayment(false);
 
@@ -163,20 +154,3 @@ const PaymentForm = () => {
     );
 };
 export default PaymentForm;
-
-
-
-
-/*
-        const response = await fetch('/.netlify/functions/create-payment-intent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ amount: amount * 100 }),
-        }).then((res) => {
-            return res.json();
-        }).then((data) => {
-            console.log("Data", data);
-        });
-*/
