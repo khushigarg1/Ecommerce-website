@@ -12,8 +12,8 @@ import App from './App';
 
 // import reportWebVitals from './reportWebVitals';
 import { PersistGate } from 'redux-persist/integration/react';
-// import { Elements } from '@stripe/react-stripe-js';
-// import { stripePromise } from './utils/firebase/stripe/stripe.utils';
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/firebase/stripe/stripe.utils';
 
 const rootElement = document.getElementById('root');
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -38,9 +38,9 @@ render(
                     {/* <UserProvider> */}
                     {/* <CategoriesProvider> */}
                     {/* <CartProvider> */}
-                    {/* <Elements stripe={stripePromise}> */}
-                    <App />
-                    {/* </Elements> */}
+                    <Elements stripe={stripePromise}>
+                        <App />
+                    </Elements>
                     {/* </CartProvider> */}
                     {/* </CategoriesProvider> */}
                     {/* </UserProvider> */}
