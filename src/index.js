@@ -12,8 +12,6 @@ import App from './App';
 
 // import reportWebVitals from './reportWebVitals';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Elements } from '@stripe/react-stripe-js';
-import { stripePromise } from './utils/firebase/stripe/stripe.utils';
 
 const rootElement = document.getElementById('root');
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -38,16 +36,17 @@ render(
                     {/* <UserProvider> */}
                     {/* <CategoriesProvider> */}
                     {/* <CartProvider> */}
-                    <Elements stripe={stripePromise}>
+                        {/* <Elements stripe={stripePromise}> */}
                         <App />
-                    </Elements>
+                        {/* </Elements> */}
                     {/* </CartProvider> */}
                     {/* </CategoriesProvider> */}
                     {/* </UserProvider> */}
                 </BrowserRouter>
             </PersistGate>
         </Provider>
-    </React.StrictMode>,
+    </React.StrictMode>
+    ,
     rootElement
 );
 
@@ -56,5 +55,4 @@ render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-
-// reportWebVitals();
+reportWebVitals();
