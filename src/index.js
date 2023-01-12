@@ -4,14 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store/store';
 import { render } from 'react-dom';
+
+import { Elements } from '@stripe/react-stripe-js';
+
 import './index.scss';
 import App from './App';
 // import { UserProvider } from './contexts/user.context';
 // import { CategoriesProvider } from './contexts/categories.context';
-import { CartProvider } from './contexts/cart.context';
+// import { CartProvider } from './contexts/cart.context';
 
 import reportWebVitals from './reportWebVitals';
 import { PersistGate } from 'redux-persist/integration/react';
+import { stripePromise } from './utils/firebase/stripe/stripe.utils';
 
 const rootElement = document.getElementById('root');
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,9 +28,9 @@ render(
                     {/* <UserProvider> */}
                     {/* <CategoriesProvider> */}
                     {/* <CartProvider> */}
-                        {/* <Elements stripe={stripePromise}> */}
+                    <Elements stripe={stripePromise}>
                         <App />
-                        {/* </Elements> */}
+                    </Elements>
                     {/* </CartProvider> */}
                     {/* </CategoriesProvider> */}
                     {/* </UserProvider> */}
